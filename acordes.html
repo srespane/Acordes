@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+		<meta HTTP-EQUIV="Content-Script-Type" CONTENT="text/javascript">
+		<title>e-Cerebrum - Acordes de guitarra</TITLE>
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="js/main.js"></script>
+		<script src="js/jquery-ui.js"></script>
+		<link href="estilo.css" rel="stylesheet" type="text/css">
+		<style>
+
+		</style>
+	</head>
+	<body>
+		<noscript>Para acceder a las letras y acordes de Glosario de Acordes debes tener activado el javascript.</noscript>
+		<script type="text/javascript" src="js/chords.js"></script>
+		<center>		
+			<div>
+				<div class='flexRow'>
+					<div id="acorde" class='flexItem simple lightCoral'>Acorde:</div>
+					<div id="version" class='flexItem simple limon'>#</div>
+					<div class='flexItem simple verde'><a href="#" onClick="nextversion();return false;">Siguiente</a></div>
+				</div>  
+				<div class='flexRow'>
+					<div class='flexItem simple'>
+						<SELECT Id="chord" SIZE=8 onChange="displaychord(1)" onClick="displaychord(1)">
+							<OPTION DISABLED SELECTED value=0>Tono</option>
+							<OPTION value=1>C</option>
+							<OPTION value=2>C#/Db</option>
+							<OPTION value=3>D</option>
+							<OPTION value=4>D#/Eb</option>
+							<OPTION value=5>E</option>
+							<OPTION value=6>F</option>
+							<OPTION value=7>F#/Gb</option>
+							<OPTION value=8>G</option>
+							<OPTION value=9>G#/Ab</option>
+							<OPTION value=10>A</option>
+							<OPTION value=11>A#/Bb</option>
+							<OPTION value=12>B</option>
+						</SELECT>
+					</div>
+					<div class='flexItem simple'>
+						<SELECT Id="majmin" SIZE=8 onChange="displaychord(1)" onClick="displaychord(1)">
+							<OPTION DISABLED SELECTED value=0>Modo</option>
+							<OPTION value=1>Mayor</option>
+							<OPTION value=2>Menor</option>
+							<OPTION value=3>dim</option>
+							<OPTION value=4>aug</option>
+							<OPTION value=5>sus</option>
+							<OPTION value=6>6</option>
+							<OPTION value=7>7</option>
+							<OPTION value=8>maj7</option>
+							<OPTION value=9>9</option>
+							<OPTION value=10>add9</option>
+							<OPTION value=11>m6</option>
+							<OPTION value=12>m7</option>
+							<OPTION value=13>mmaj7</option>
+							<OPTION value=14>m9</option>
+							<OPTION value=15>11</option>
+							<OPTION value=16>7sus4</option>
+							<OPTION value=17>13</option>
+							<OPTION value=18>6add9</option>
+							<OPTION value=19>-5</option>
+							<OPTION value=20>7-5</option>
+							<OPTION value=21>7maj5</option>
+							<OPTION value=22>maj9</option>
+						</SELECT>		
+					</div>
+					<div class='flexItem simple'>
+							<SELECT Id="special" SIZE=8 onChange="displaychord(2)" onClick="displaychord(2)" disabled="true">
+								<OPTION DISABLED SELECTED value=0>Acorde</option>
+								<option value=1>C/E</option>
+								<option value=2>C/F</option>
+								<option value=3>C/G</option>
+								<option value=4>D/F#</option>
+								<option value=5>D/C</option>
+								<option value=6>D/B</option>
+								<option value=7>D/Bb</option>
+								<option value=8>D/A</option>
+								<option value=9>E/B</option>
+								<option value=10>E/C#</option>
+								<option value=11>E/D</option>
+								<option value=12>E/D#</option>
+								<option value=13>E/F</option>
+								<option value=14>E/F#</option>
+								<option value=15>E/G</option>
+								<option value=16>E/G#</option>
+								<option value=17>Em/B</option>
+								<option value=18>Em/C#</option>
+								<option value=19>Em/D</option>
+								<option value=20>Em/D#</option>
+								<option value=21>Em/F</option>
+								<option value=22>Em/F#</option>
+								<option value=23>Em/G</option>
+								<option value=24>Em/G#</option>
+								<option value=25>F/C</option>
+								<option value=26>F/D</option>
+								<option value=27>F/D#</option>
+								<option value=28>F/E</option>
+								<option value=29>F/G</option>
+								<option value=30>F/A</option>
+								<option value=31>Fm/C</option>
+								<option value=32>G/D</option>
+								<option value=33>G/E</option>
+								<option value=34>G/F</option>
+								<option value=35>G/F#</option>
+								<option value=36>G/B</option>
+								<option value=37>Gm/D</option>
+								<option value=38>A/G#</option>
+								<option value=39>A/G</option>
+								<option value=40>A/F#</option>
+								<option value=41>A/F</option>
+								<option value=42>A/E</option>
+								<option value=43>A/C#</option>
+								<option value=44>Am/G#</option>
+								<option value=45>Am/G</option>
+								<option value=46>Am/F#</option>
+								<option value=47>Am/F</option>
+								<option value=48>Am/E</option>
+								<option value=49>Am/C</option>
+							</SELECT>		
+					</div>
+					<div class="flexItem quad">
+						<TABLE id="fretboard" border="0" borderColor="blue" cellPadding="0" cellSpacing="0">
+					<TBODY>
+						<TR class="guitar">
+							<TD>e&nbsp;&nbsp;</TD>
+							<TD>
+								<img src=ivacio.gif>
+							</TD>
+							<TD>
+								<img src=marco.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+						</TR>
+						<TR class="guitar">
+							<TD>B&nbsp;&nbsp;</TD>
+							<TD>
+								<img src=ivacio.gif>
+							</TD>
+							<TD>
+								<img src=marco.gif>
+							</TD>
+							</TD>
+							<TD>
+								<img	 src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+							<TD>
+								<img src=vacio.gif>
+							</TD>
+							<TD>
+								<img src=traste.gif>
+							</TD>
+						</TR>
+						<TR class="guitar">
+							<TD>G&nbsp;&nbsp;</TD>
+							<TD>
+							<img src=ivacio.gif>
+							</TD>
+							<TD>
+							<img src=marco.gif>
+							</TD>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+						</TR>
+						<TR class="guitar">
+							<TD>D&nbsp;&nbsp;</TD>
+							<TD>
+							<img src=ivacio.gif>
+							</TD>
+							<TD>
+							<img src=marco.gif>
+							</TD>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+						</TR>
+						<TR class="guitar">
+							<TD>A&nbsp;&nbsp;</TD>
+							<TD>
+							<img src=ivacio.gif>
+							</TD>
+							<TD>
+							<img src=marco.gif>
+							</TD>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+						</TR>
+						<TR class="guitar">
+							<TD>E&nbsp;&nbsp;</TD>
+							<TD>
+							<img src=ivacio.gif>
+							</TD>
+							<TD>
+							<img src=marco.gif>
+							</TD>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+							<TD>
+							<img src=vacio.gif>
+							</TD>
+							<TD>
+							<img src=traste.gif>
+							</TD>
+						</TR>
+						<TR class="guitar" align=center valign=top height=50>
+						<TD/>
+						<TD/>
+						<TD/>
+						<TD>1</TD>
+						<TD/>
+						<TD>2</TD>
+						<TD/>
+						<TD>3</TD>
+						<TD/>
+						<TD>4</TD>
+						<TD/>
+						<TD>5</TD>
+						<TD/>
+						<TD>6</TD>
+						<TD/>
+						<TD>7</TD>
+						<TD/>
+						<TD>8</TD>
+						<TD/>
+						<TD>9</TD>
+						<TD/>
+						<TD>10</TD>
+						<TD/>
+						<TD>11</TD>
+						<TD/>
+						<TD>12</TD>
+						<TD/>
+						<TD>13</TD>
+						<TD/>
+						<TD>14</TD>
+						<TD/>
+						<TD>15</TD>
+						</TR>
+					</TBODY>
+				</TABLE>	
+			</div>
+		</div>
+		<div class='flexRow'>
+			<div class='flexItem doble'>
+			<a href="#" onclick="toggletype(1);return false;">Acordes normales</a>
+			</div>
+			<div class='flexItem simple'>
+			<a  href="#" onclick="toggletype(2);return false;">Acordes especiales</a>
+			</div>
+		</div>		
+	</div>
+</center>
+	</body>
+</html>

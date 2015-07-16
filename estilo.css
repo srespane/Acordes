@@ -1,0 +1,38 @@
+::-webkit-scrollbar {width: 0.6em;height: 0.5em;}
+::-webkit-scrollbar-thumb {background: slategray;border-radius:10px;}
+::-webkit-scrollbar-track {background: #b7bfc7;}
+
+body {scrollbar-face-color: slategray;scrollbar-track-color: #b7bfc7;}
+
+#fretboard td { padding:0 }
+tr.guitar {font:bold 8pt/10px verdana; color:#aaa; }
+#cmdpanel  { margin-bottom:12px }
+#cmdpanel  td {padding:0; font:bold 10pt verdana; color:#000 }
+td.instruc2 {padding-left:100px; width:250px; font:normal 10pt arial; color:#000 }
+td.instruc2 ul { padding-left:20px } 
+td.instruc2 li {margin-bottom:6px }
+
+select {font-size:1.5em;width: 100%;}
+option {color:#6666;font-weight:bold; padding:5px;}
+option:hover {background-color:skyblue;color:whitesmoke;}
+/* option {border:1px solid green;} */
+
+.flexContainer {display: flex;flex-flow: column wrap;}
+.flexRow {display: flex;flex-flow: row wrap;}
+
+.flexColumn {display: flex;flex-flow: column wrap;}
+
+.flexItem {
+  display: flex;
+  flex-flow: column wrap;
+  text-align: center;
+  font-family: open-sans;
+  font-size: 18px;
+  line-height: 120px;
+  border:solid 1px grey;
+  align-items: center;
+}
+.simple {flex: 1;}
+.doble {flex: 2;}
+.quad {flex: 4; }
+.penta {flex: 5;}
